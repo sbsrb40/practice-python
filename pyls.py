@@ -1,14 +1,5 @@
-import json
-import datetime
-
-with open('structure.json') as json_file:
-    data = json.load(json_file)
-    all_records = data['contents']
-
-
 def base_sort(item):
     return item["name"]
-
 
 def prepare_all_details():
     list_of_files = []
@@ -85,6 +76,13 @@ def human_readble(total_bytes):
 
 if __name__ == '__main__':
     import sys
+    import json
+    import datetime
+
+    with open('structure.json') as json_file:
+        data = json.load(json_file)
+        all_records = data['contents']
+
     allowed_options = ['-A','-l','-r','-t','-h','--flag', '--filter=dir', '--filter=file']
     
     for opt in sys.argv[1:]:
