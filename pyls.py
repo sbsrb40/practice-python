@@ -1,6 +1,6 @@
 def base_sort(item):
     return item["name"]
-
+    
 def prepare_all_details():
     list_of_files = []
     src = {}
@@ -30,6 +30,8 @@ def name_of_files():
     print()
 
 def print_all_details():
+    import datetime
+
     for rec in op_table:
         date_time = datetime.datetime.fromtimestamp(rec["time_modified"]).strftime("%b %d %H:%M:%S")
         if "--filter=dir" in sys.argv and rec["permissions"].startswith("-"):
@@ -74,15 +76,18 @@ def human_readble(total_bytes):
         size = str(total_bytes)
     return size
 
+def read_from_json(path):
+    import json
+
+    with open(path) as json_file:
+        data = json.load(json_file)
+        all_contents = data['contents']
+    return all_contents
+
 if __name__ == '__main__':
     import sys
-    import json
-    import datetime
 
-    with open('structure.json') as json_file:
-        data = json.load(json_file)
-        all_records = data['contents']
-
+    all_records = read_from_json('structure.json')
     allowed_options = ['-A','-l','-r','-t','-h','--flag', '--filter=dir', '--filter=file']
     
     for opt in sys.argv[1:]:
